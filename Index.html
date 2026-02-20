@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS: iPhone Bridge</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; text-align: center; padding: 40px; background-color: #f4f4f9; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn { background: #007AFF; color: white; padding: 15px 25px; border-radius: 12px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; cursor: pointer; border: none; font-size: 18px; }
+        #status { margin-top: 20px; color: #666; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>iPhone ➔ PC Bridge</h1>
+        <p>Kies een liedje om het over te zetten naar je computer via USB.</p>
+        
+        <input type="file" id="filePicker" accept="audio/*" style="display:none">
+        <button class="btn" onclick="document.getElementById('filePicker').click()">Selecteer Liedje</button>
+
+        <div id="status"></div>
+    </div>
+
+    <script>
+        document.getElementById('filePicker').onchange = function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const status = document.getElementById('status');
+                status.innerHTML = "Bestand geladen: <b>" + file.name + "</b><br><br>Klik hieronder om op te slaan:";
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(file);
+                downloadLink.download = file.name;
+                downloadLink.innerText = "📁 Bewaar in Bestanden";
+                downloadLink.className = "btn";
+                downloadLink.style.backgroundColor = "#28a745";
+                
+                status.appendChild(document.createElement('br'));
+                status.appendChild(downloadLink);
+            }
+        };
+    </script>
+</body>
+</html>
